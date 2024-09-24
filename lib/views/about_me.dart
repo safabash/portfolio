@@ -46,7 +46,7 @@ class AboutMe extends StatelessWidget {
     return FadeInRight(
       duration: const Duration(milliseconds: 1200),
       child: Image.asset(
-        AppAssets.profile2,
+        AppAssets.profile1,
         height: 450,
         width: 400,
       ),
@@ -86,22 +86,16 @@ class AboutMe extends StatelessWidget {
         FadeInLeft(
           duration: const Duration(milliseconds: 1600),
           child: Text(
-            'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.'
-            ' The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters,'
-            ' as opposed to using \'Content here, content here\', making it look like readable English.'
-            ' Many desktop publishing packages and web page editors now use Lorem Ipsum as their default'
-            ' model text, and a search for \'lorem ipsum\' will uncover many web sites still in their infancy.'
-            ' Various versions have evolved over the years, sometimes by accident, sometimes on purpose'
-            ' (injected humour and the like).',
+            "Experienced Flutter developer with a passion for creating cross-platform mobile applications. Proficient in Dart programming language and skilled in leveraging Flutter's rich widget library to build intuitive, responsive user interfaces. Adept at optimizing app performance and ensuring seamless functionality across iOS and Android platforms. Committed to staying current with the latest Flutter updates and best practices in mobile app development",
             style: AppTextStyles.normalStyle(),
           ),
         ),
         Constants.sizedBox(height: 15.0),
-        FadeInUp(
-          duration: const Duration(milliseconds: 1800),
-          child: AppButtons.buildMaterialButton(
-              onTap: () {}, buttonName: 'Read More'),
-        )
+        // FadeInUp(
+        //   duration: const Duration(milliseconds: 1800),
+        //   child: AppButtons.buildMaterialButton(
+        //       onTap: () {}, buttonName: 'Read More'),
+        // )
       ],
     );
   }

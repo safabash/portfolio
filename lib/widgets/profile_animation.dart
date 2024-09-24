@@ -21,14 +21,14 @@ class _ProfileAnimationState extends State<ProfileAnimation>
         AnimationController(vsync: this, duration: const Duration(seconds: 3))
           ..repeat(reverse: true);
 
-    _animation = Tween(begin: const Offset(0,0.05), end: const Offset(0, 0))
+    _animation = Tween(begin: const Offset(0, 0.05), end: const Offset(0, 0))
         .animate(_controller);
   }
 
   @override
   void dispose() {
-    super.dispose();
     _controller.dispose();
+    super.dispose();
   }
 
   @override
@@ -37,8 +37,8 @@ class _ProfileAnimationState extends State<ProfileAnimation>
       position: _animation,
       child: Image.asset(
         AppAssets.profile1,
-        width: 340,
-        height: 450,
+        width: 320,
+        height: 370,
         fit: BoxFit.fill,
       ),
     );

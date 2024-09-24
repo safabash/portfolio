@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:animate_do/animate_do.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +10,12 @@ import 'package:my_portfolio/globals/app_text_styles.dart';
 import 'package:my_portfolio/globals/constants.dart';
 import 'package:my_portfolio/helper%20class/helper_class.dart';
 import 'package:my_portfolio/widgets/profile_animation.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+import 'package:flutter/services.dart' show rootBundle;
+import 'package:path_provider/path_provider.dart';
+import 'dart:io';
+import 'package:open_file/open_file.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -18,14 +26,43 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final socialButtons = <String>[
-    AppAssets.facebook,
-    AppAssets.twitter,
     AppAssets.linkedIn,
-    AppAssets.insta,
     AppAssets.github,
+  ];
+  final socialLinks = <String>[
+    "https://www.linkedin.com/in/safa-basheer-98916418a",
+    "https://github.com/safabash",
   ];
 
   var socialBI;
+  Future<void> _savePdfLocally() async {
+    try {
+      // Load the PDF from the assets
+      ByteData data = await rootBundle.load('assets/pdf/cv.pdf');
+      List<int> bytes = data.buffer.asUint8List();
+
+      // Get the local path to save the file
+      var dir = await getApplicationDocumentsDirectory();
+      String filePath = '${dir.path}/cv.pdf';
+
+      // Write the PDF to the file system
+      File file = File(filePath);
+      await file.writeAsBytes(bytes);
+
+      // Open the PDF file
+      OpenFile.open(filePath);
+
+      // Optionally show a success message
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('PDF saved successfully')),
+      );
+    } catch (e) {
+      // Handle any errors
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error saving PDF: $e')),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +112,7 @@ class _HomePageState extends State<HomePage> {
         FadeInRight(
           duration: const Duration(milliseconds: 1400),
           child: Text(
-            'Mukhtar Ali Khan',
+            'Safa Basheer Ahamed',
             style: AppTextStyles.headingStyles(),
           ),
         ),
@@ -90,17 +127,14 @@ class _HomePageState extends State<HomePage> {
               ),
               AnimatedTextKit(
                 animatedTexts: [
+                  TyperAnimatedText('Freelancer',
+                      textStyle: AppTextStyles.montserratStyle(
+                          color: Colors.lightBlue)),
                   TyperAnimatedText(
                     'Flutter Developer',
                     textStyle:
                         AppTextStyles.montserratStyle(color: Colors.lightBlue),
                   ),
-                  TyperAnimatedText('Freelancer',
-                      textStyle: AppTextStyles.montserratStyle(
-                          color: Colors.lightBlue)),
-                  TyperAnimatedText('YouTuber',
-                      textStyle: AppTextStyles.montserratStyle(
-                          color: Colors.lightBlue))
                 ],
                 pause: const Duration(milliseconds: 1000),
                 displayFullTextOnTap: true,
@@ -112,13 +146,11 @@ class _HomePageState extends State<HomePage> {
         Constants.sizedBox(height: 15.0),
         FadeInDown(
           duration: const Duration(milliseconds: 1600),
-          child: Expanded(
-            child: Text(
-              'In publishing and graphic design, Lorem ipsum is a placeholder '
-              'text commonly used to demonstrate the visual form of a document'
-              ' or a typeface without relying on meaningful content.',
-              style: AppTextStyles.normalStyle(),
-            ),
+          child: Text(
+            'Flutter developer with 1.5 years of experience building cross-platform mobile apps. '
+            ' Proficient in Dart, they excel in creating responsive,'
+            ' high-performance applications',
+            style: AppTextStyles.normalStyle(),
           ),
         ),
         Constants.sizedBox(height: 22.0),
@@ -134,7 +166,11 @@ class _HomePageState extends State<HomePage> {
                   Constants.sizedBox(width: 8.0),
               itemBuilder: (context, index) {
                 return InkWell(
-                  onTap: () {},
+                  onTap: () async {
+                    if (!await launchUrl(Uri.parse(socialLinks[index]))) {
+                      throw Exception('Could not launch url');
+                    }
+                  },
                   onHover: (value) {
                     setState(() {
                       if (value) {
@@ -159,7 +195,10 @@ class _HomePageState extends State<HomePage> {
         FadeInUp(
           duration: const Duration(milliseconds: 1800),
           child: AppButtons.buildMaterialButton(
-              onTap: () {}, buttonName: 'Download CV'),
+              onTap: () {
+                _savePdfLocally();
+              },
+              buttonName: 'Download CV'),
         ),
       ],
     );

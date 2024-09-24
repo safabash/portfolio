@@ -11,7 +11,7 @@ class AppTextStyles {
   }
 
   static TextStyle montserratStyle(
-      {required Color color, double fontSize = 24}) {
+      {required Color color, double fontSize = 23}) {
     return GoogleFonts.montserrat(
       color: color,
       fontWeight: FontWeight.w800,

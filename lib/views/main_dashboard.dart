@@ -19,8 +19,10 @@ class MainDashBoard extends StatefulWidget {
 
 class _MainDashBoardState extends State<MainDashBoard> {
   final ItemScrollController _itemScrollController = ItemScrollController();
-  final ItemPositionsListener itemPositionsListener = ItemPositionsListener.create();
-  final ScrollOffsetListener scrollOffsetListener = ScrollOffsetListener.create();
+  final ItemPositionsListener itemPositionsListener =
+      ItemPositionsListener.create();
+  final ScrollOffsetListener scrollOffsetListener =
+      ScrollOffsetListener.create();
   final onMenuHover = Matrix4.identity()..scale(1.0);
   final menuItems = <String>[
     'Home',
@@ -72,7 +74,10 @@ class _MainDashBoardState extends State<MainDashBoard> {
               return Row(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  const Text('Portfolio'),
+                  const Text(
+                    'Portfolio',
+                    style: TextStyle(color: Colors.white),
+                  ),
                   const Spacer(),
                   PopupMenuButton(
                     icon: Icon(
@@ -93,7 +98,10 @@ class _MainDashBoardState extends State<MainDashBoard> {
                             onTap: () {
                               scrollTo(index: e.key);
                             },
-                            child: Text(e.value),
+                            child: Text(
+                              e.value,
+                              style: const TextStyle(color: Colors.white),
+                            ),
                           ),
                         )
                         .toList(),
@@ -104,7 +112,10 @@ class _MainDashBoardState extends State<MainDashBoard> {
               return Row(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  const Text('Portfolio'),
+                  const Text(
+                    'Portfolio',
+                    style: TextStyle(color: Colors.white),
+                  ),
                   const Spacer(),
                   SizedBox(
                     height: 30,
@@ -142,21 +153,13 @@ class _MainDashBoardState extends State<MainDashBoard> {
           },
         ),
       ),
-      body: Scrollbar(
-        trackVisibility: true,
-        thumbVisibility: true,
-        thickness: 8,
-        interactive: true,
-        controller: yourScrollController,
-        child: ScrollablePositionedList.builder(
-          itemCount: screensList.length,
-          itemScrollController: _itemScrollController,
-          itemPositionsListener: itemPositionsListener,
-          scrollOffsetListener: scrollOffsetListener,
-          itemBuilder: (context, index) {
-            return screensList[index];
-          },
-        ),
+      body: ScrollablePositionedList.builder(
+        itemCount: screensList.length,
+        itemScrollController: _itemScrollController,
+        itemPositionsListener: itemPositionsListener,
+        itemBuilder: (context, index) {
+          return screensList[index];
+        },
       ),
     );
   }

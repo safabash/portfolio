@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:my_portfolio/globals/app_assets.dart';
@@ -16,13 +18,27 @@ class MyPortfolio extends StatefulWidget {
 class _MyPortfolioState extends State<MyPortfolio> {
   final onH0verEffect = Matrix4.identity()..scale(1.0);
 
-  List images = <String>[
-    AppAssets.work1,
-    AppAssets.work2,
-    AppAssets.work1,
-    AppAssets.work2,
-    AppAssets.work1,
-    AppAssets.work2,
+  List<Projects> projects = <Projects>[
+    Projects(
+        image: AppAssets.work1,
+        description:
+            "Find Kosher restaurants and kosher recipes, catered to your preference and location, showcasing kosher events and customized functions for user needs",
+        title: "Kosher Guru"),
+    Projects(
+        image: AppAssets.work2,
+        description:
+            "All your marketing tools at one place, including calls, texts,sms and so on. build by integrating twilio ",
+        title: "Easify"),
+    Projects(
+        image: AppAssets.work3,
+        description:
+            "All-in-one solution for efficient restaurant management on the go. Seamlessly integrates ordering, inventory tracking, staff management available on web,desktop and mobiles",
+        title: "Restaurant ERP"),
+    Projects(
+        image: AppAssets.work4,
+        description:
+            "Streamlined mobile platform for managing and building credit through primary tradelines. Simplifies the process of establishing credit history with  personalized recommendations for credit improvement.",
+        title: "Primary tradelines"),
   ];
 
   var hoveredIndex;
@@ -62,7 +78,7 @@ class _MyPortfolioState extends State<MyPortfolio> {
 
   GridView buildProjectGridView({required int crossAxisCount}) {
     return GridView.builder(
-      itemCount: images.length,
+      itemCount: projects.length,
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -72,12 +88,17 @@ class _MyPortfolioState extends State<MyPortfolio> {
         crossAxisSpacing: 24,
       ),
       itemBuilder: (context, index) {
-        var image = images[index];
+        var image = projects[index].image;
         return FadeInUpBig(
           duration: const Duration(milliseconds: 1600),
           child: InkWell(
-            onTap: () {},
+            onTap: () {
+              setState(() {
+                hoveredIndex = index;
+              });
+            },
             onHover: (value) {
+              log('hj');
               setState(() {
                 if (value) {
                   hoveredIndex = index;
@@ -93,7 +114,7 @@ class _MyPortfolioState extends State<MyPortfolio> {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
                     image: DecorationImage(
-                        image: AssetImage(image), fit: BoxFit.fill),
+                        image: AssetImage(image ?? ""), fit: BoxFit.fill),
                   ),
                 ),
                 Visibility(
@@ -119,28 +140,28 @@ class _MyPortfolioState extends State<MyPortfolio> {
                     child: Column(
                       children: [
                         Text(
-                          'App Development',
+                          projects[index].title ?? "",
                           style: AppTextStyles.montserratStyle(
                               color: Colors.black87, fontSize: 20),
                         ),
                         Constants.sizedBox(height: 15.0),
                         Text(
-                          'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.',
+                          projects[index].description ?? "",
                           style:
                               AppTextStyles.normalStyle(color: Colors.black87),
                           textAlign: TextAlign.center,
                         ),
                         Constants.sizedBox(height: 30.0),
-                        CircleAvatar(
-                          maxRadius: 25,
-                          backgroundColor: Colors.white,
-                          child: Image.asset(
-                            AppAssets.share,
-                            width: 25,
-                            height: 25,
-                            fit: BoxFit.fill,
-                          ),
-                        )
+                        // CircleAvatar(
+                        //   maxRadius: 25,
+                        //   backgroundColor: Colors.white,
+                        //   child: Image.asset(
+                        //     AppAssets.share,
+                        //     width: 25,
+                        //     height: 25,
+                        //     fit: BoxFit.fill,
+                        //   ),
+                        // )
                       ],
                     ),
                   ),
@@ -171,4 +192,12 @@ class _MyPortfolioState extends State<MyPortfolio> {
       ),
     );
   }
+}
+
+class Projects {
+  String? image;
+  String? description;
+  String? title;
+  Projects(
+      {required this.image, required this.description, required this.title});
 }

@@ -1,0 +1,29 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "personal-portfolio-website",
+            "request": "launch",
+            "type": "dart",
+            "deviceId": "chrome",
+            "args": [
+                "--web-renderer",
+                "html"
+            ]
+        },
+        {
+            "name": "personal-portfolio-website (profile mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile",
+            "deviceId": "chrome"
+        },
+        {
+            "name": "personal-portfolio-website (release mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release",
+            "deviceId": "chrome"
+        }
+    ]
+}

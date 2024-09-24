@@ -18,9 +18,14 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: PageStorage(
-        bucket: bucket,
-        child: const MainDashBoard(),
+      home: GestureDetector(
+        onTap: () {
+          FocusManager.instance.primaryFocus?.unfocus();
+        },
+        child: PageStorage(
+          bucket: bucket,
+          child: const MainDashBoard(),
+        ),
       ),
     );
   }
