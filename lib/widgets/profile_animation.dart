@@ -36,7 +36,7 @@ class _ProfileAnimationState extends State<ProfileAnimation>
     return SlideTransition(
       position: _animation,
       child: Image.asset(
-        AppAssets.profile1,
+        AppAssets.work1,
         width: 320,
         height: 370,
         fit: BoxFit.fill,

@@ -154,41 +154,38 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
         Constants.sizedBox(height: 22.0),
-        FadeInUp(
-          duration: const Duration(milliseconds: 1600),
-          child: SizedBox(
-            height: 48,
-            child: ListView.separated(
-              itemCount: socialButtons.length,
-              shrinkWrap: true,
-              scrollDirection: Axis.horizontal,
-              separatorBuilder: (context, child) =>
-                  Constants.sizedBox(width: 8.0),
-              itemBuilder: (context, index) {
-                return InkWell(
-                  onTap: () async {
-                    if (!await launchUrl(Uri.parse(socialLinks[index]))) {
-                      throw Exception('Could not launch url');
+        SizedBox(
+          height: 48,
+          child: ListView.separated(
+            itemCount: socialButtons.length,
+            shrinkWrap: true,
+            scrollDirection: Axis.horizontal,
+            separatorBuilder: (context, child) =>
+                Constants.sizedBox(width: 8.0),
+            itemBuilder: (context, index) {
+              return InkWell(
+                onTap: () async {
+                  if (!await launchUrl(Uri.parse(socialLinks[index]))) {
+                    throw Exception('Could not launch url');
+                  }
+                },
+                onHover: (value) {
+                  setState(() {
+                    if (value) {
+                      socialBI = index;
+                    } else {
+                      socialBI = null;
                     }
-                  },
-                  onHover: (value) {
-                    setState(() {
-                      if (value) {
-                        socialBI = index;
-                      } else {
-                        socialBI = null;
-                      }
-                    });
-                  },
-                  borderRadius: BorderRadius.circular(550.0),
-                  hoverColor: AppColors.themeColor,
-                  splashColor: AppColors.lawGreen,
-                  child: buildSocialButton(
-                      asset: socialButtons[index],
-                      hover: socialBI == index ? true : false),
-                );
-              },
-            ),
+                  });
+                },
+                borderRadius: BorderRadius.circular(550.0),
+                hoverColor: AppColors.themeColor,
+                splashColor: AppColors.lawGreen,
+                child: buildSocialButton(
+                    asset: socialButtons[index],
+                    hover: socialBI == index ? true : false),
+              );
+            },
           ),
         ),
         Constants.sizedBox(height: 18.0),

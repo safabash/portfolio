@@ -46,7 +46,7 @@ class AboutMe extends StatelessWidget {
     return FadeInRight(
       duration: const Duration(milliseconds: 1200),
       child: Image.asset(
-        AppAssets.profile1,
+        AppAssets.work1,
         height: 450,
         width: 400,
       ),
